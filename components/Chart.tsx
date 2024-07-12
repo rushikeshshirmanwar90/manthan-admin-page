@@ -21,11 +21,11 @@ const COLORS = ["#FF6384", "#36A2EB", "#FFCE56", "#8E5EA2", "#a25e78"];
 
 const TrafficChart: React.FC = () => {
   const data: TrafficData[] = [
-    { name: "Chiken Briyani", value: 2479, color: "#FF6384" },
-    { name: "Butter Chiken", value: 1349, color: "#36A2EB" },
-    { name: "Paneer Lollipop", value: 1294, color: "#FFCE56" },
-    { name: "Mutton Briyani", value: 857, color: "#8E5EA2" },
-    { name: "Other", value: 857, color: "#a25e78" },
+    { name: "The Metropolitan Manor", value: 5, color: "#FF6384" },
+    { name: "The Loft Life", value: 10, color: "#36A2EB" },
+    { name: "The Urban Haven", value: 8, color: "#FFCE56" },
+    { name: "The Industrial Residence", value: 4, color: "#8E5EA2" },
+    { name: "Other", value: 7, color: "#a25e78" },
   ];
 
   return (
@@ -34,7 +34,7 @@ const TrafficChart: React.FC = () => {
         <div className="flex flex-col items-center">
           <ResponsiveContainer width="100%" height={400}>
             <PieChart>
-            <Tooltip />
+              <Tooltip />
               <Pie
                 data={data}
                 dataKey="value"
@@ -58,8 +58,8 @@ const TrafficChart: React.FC = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Menus</TableHead>
-                <TableHead>Total Orders</TableHead>
+                <TableHead>Flats</TableHead>
+                <TableHead>Total Leads</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

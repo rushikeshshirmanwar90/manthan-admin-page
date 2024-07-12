@@ -10,6 +10,7 @@ import {
 import { BiSolidFoodMenu } from "react-icons/bi";
 import Image from "next/image";
 import Logo from "@/public/logo.png";
+import { MdLeaderboard } from "react-icons/md";
 
 const Sidebar: React.FC<{ active: string }> = ({ active }) => {
   const [activeMenu, setActiveMenu] = useState(active);
@@ -24,15 +25,15 @@ const Sidebar: React.FC<{ active: string }> = ({ active }) => {
           height={200}
           className="w-[55px]"
         />
-        <span className="text-xl font-bold ml-2">Hotel Pooja Garden</span>
+
+        <span className="text-xl font-bold ml-2">Manthan Interface</span>
       </div>
       <ul className="side-menu top px-5">
         {[
           { name: "Dashboard", icon: BsFillGridFill, link: "/" },
-          { name: "Customers", icon: BsEmojiSmileFill, link: "/customer" },
+          { name: "Leads", icon: MdLeaderboard, link: "/leads" },
           { name: "Staff", icon: BsPersonFill, link: "/staff" },
           { name: "Order", icon: BiSolidFoodMenu, link: "/order" },
-          { name: "Analytics", icon: BsPieChartFill, link: "/analytics" },
         ].map((menu) => (
           <li
             key={menu.name}
@@ -40,8 +41,6 @@ const Sidebar: React.FC<{ active: string }> = ({ active }) => {
               activeMenu === menu.name ? "bg-gray-200" : ""
             } mt-4`}
           >
-
-            
             <Link href={`${menu.link}`}>
               <div
                 onClick={() => setActiveMenu(menu.name)}

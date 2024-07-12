@@ -28,37 +28,37 @@ const page = () => {
               <TableHeader>
                 <TableRow>
                   <TableHead>Name</TableHead>
-                  <TableHead>Role</TableHead>
-                  <TableHead>Section</TableHead>
-                  <TableHead>Table Allocated</TableHead>
+                  <TableHead>Rank</TableHead>
+                  <TableHead>Total Leads Allocated</TableHead>
+                  <TableHead>Table Lead Closed</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 <TableRow>
                   <TableCell className="font-medium">Rushikesh</TableCell>
-                  <TableCell className="font-medium">waiter</TableCell>
-                  <TableCell className="font-medium">10,15,22</TableCell>
-                  <TableCell className="font-medium">bar</TableCell>
+                  <TableCell className="font-medium">5</TableCell>
+                  <TableCell className="font-medium">6</TableCell>
+                  <TableCell className="font-medium">3</TableCell>
                 </TableRow>
 
                 <TableRow>
                   <TableCell className="font-medium">Jonny</TableCell>
-                  <TableCell className="font-medium">Manager</TableCell>
-                  <TableCell className="font-medium">10,15,22</TableCell>
-                  <TableCell className="font-medium">bar</TableCell>
+                  <TableCell className="font-medium">3</TableCell>
+                  <TableCell className="font-medium">18</TableCell>
+                  <TableCell className="font-medium">10</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Rushikesh</TableCell>
-                  <TableCell className="font-medium">waiter</TableCell>
-                  <TableCell className="font-medium">10,15,22</TableCell>
-                  <TableCell className="font-medium">bar</TableCell>
+                  <TableCell className="font-medium">2</TableCell>
+                  <TableCell className="font-medium">12</TableCell>
+                  <TableCell className="font-medium">8</TableCell>
                 </TableRow>
 
                 <TableRow>
                   <TableCell className="font-medium">Jonny</TableCell>
-                  <TableCell className="font-medium">Manager</TableCell>
-                  <TableCell className="font-medium">10,15,22</TableCell>
-                  <TableCell className="font-medium">bar</TableCell>
+                  <TableCell className="font-medium">1</TableCell>
+                  <TableCell className="font-medium">16</TableCell>
+                  <TableCell className="font-medium">5</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
