@@ -1,16 +1,14 @@
 "use client";
+
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  BsPersonFill,
-  BsFillGridFill,
-  BsPieChartFill,
-  BsEmojiSmileFill,
-} from "react-icons/bs";
+import { BsPersonFill, BsFillGridFill } from "react-icons/bs";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import Image from "next/image";
 import Logo from "@/public/logo.png";
 import { MdLeaderboard } from "react-icons/md";
+import { PiUsersThreeFill } from "react-icons/pi";
+import { BiSolidBuildings } from "react-icons/bi";
 
 const Sidebar: React.FC<{ active: string }> = ({ active }) => {
   const [activeMenu, setActiveMenu] = useState(active);
@@ -26,21 +24,25 @@ const Sidebar: React.FC<{ active: string }> = ({ active }) => {
           className="w-[55px]"
         />
 
-        <span className="text-xl font-bold ml-2">Manthan Interface</span>
+        <span className="text-xl font-bold ml-2">Manthan Infracare</span>
       </div>
+
       <ul className="side-menu top px-5">
         {[
           { name: "Dashboard", icon: BsFillGridFill, link: "/" },
           { name: "Leads", icon: MdLeaderboard, link: "/leads" },
           { name: "Staff", icon: BsPersonFill, link: "/staff" },
-          { name: "Order", icon: BiSolidFoodMenu, link: "/order" },
+          { name: "users", icon: PiUsersThreeFill, link: "/users" },
+          { name: "Flats", icon: BiSolidBuildings, link: "/flats" },
         ].map((menu) => (
+
           <li
             key={menu.name}
             className={`p-2 rounded-lg ${
               activeMenu === menu.name ? "bg-gray-200" : ""
             } mt-4`}
           >
+            
             <Link href={`${menu.link}`}>
               <div
                 onClick={() => setActiveMenu(menu.name)}
@@ -51,6 +53,7 @@ const Sidebar: React.FC<{ active: string }> = ({ active }) => {
               </div>
             </Link>
           </li>
+
         ))}
       </ul>
     </section>

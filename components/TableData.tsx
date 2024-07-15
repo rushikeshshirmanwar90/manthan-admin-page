@@ -44,7 +44,7 @@ const TableData: React.FC = () => {
     <div className="table-data mt-8">
       <div className="order overflow-x-auto">
         <div className="head flex items-center justify-between mb-4">
-          <h3 className="text-xl font-semibold">Recent Orders</h3>
+          <h3 className="text-xl font-semibold">Recent Leads</h3>
           <i className="bx bx-search"></i>
           <i className="bx bx-filter"></i>
         </div>

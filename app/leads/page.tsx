@@ -1,5 +1,4 @@
 import React from "react";
-import Customer from "@/components/Customer";
 import Sidebar from "@/components/Sidebar";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -16,7 +15,7 @@ const page = () => {
   return (
     <div className="flex gap-4">
       <div className="w-[17%]">
-        <Sidebar active={"Customers"} />
+        <Sidebar active={"Leads"} />
       </div>
       <main className="flex-1 p-6 grid gap-6">
         <Card>
@@ -27,18 +26,92 @@ const page = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Number</TableHead>
+                  <TableHead>Flat Id</TableHead>
+                  <TableHead>Customer Name</TableHead>
+                  <TableHead>Flat Name</TableHead>
+                  <TableHead>Assign To</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell className="font-medium">9579896842</TableCell>
+                  <TableCell className="font-medium">#P-123</TableCell>
+                  <TableCell className="font-medium">
+                    Mr. Pranjal Shahane
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    The Metropolitan Manor
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    <select className="select select-bordered w-full max-w-xs">
+                      <option disabled selected>
+                        Select The Staff
+                      </option>
+                      <option>Rushikesh</option>
+                      <option>Pranjal</option>
+                      <option>Jonny</option>
+                      <option>Tejas</option>
+                    </select>
+                  </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">9579896842</TableCell>
+                  <TableCell className="font-medium">#P-123</TableCell>
+                  <TableCell className="font-medium">
+                    Mr. Pranjal Shahane
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    The Metropolitan Manor
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    <select className="select select-bordered w-full max-w-xs">
+                      <option disabled selected>
+                        Select The Staff
+                      </option>
+                      <option>Rushikesh</option>
+                      <option>Pranjal</option>
+                      <option>Jonny</option>
+                      <option>Tejas</option>
+                    </select>
+                  </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">9579896842</TableCell>
+                  <TableCell className="font-medium">#P-123</TableCell>
+                  <TableCell className="font-medium">
+                    Mr. Pranjal Shahane
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    The Metropolitan Manor
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    <select className="select select-bordered w-full max-w-xs">
+                      <option disabled selected>
+                        Select The Staff
+                      </option>
+                      <option>Rushikesh</option>
+                      <option>Pranjal</option>
+                      <option>Jonny</option>
+                      <option>Tejas</option>
+                    </select>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">#P-123</TableCell>
+                  <TableCell className="font-medium">
+                    Mr. Pranjal Shahane
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    The Metropolitan Manor
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    <select className="select select-bordered w-full max-w-xs">
+                      <option disabled selected>
+                        Select The Staff
+                      </option>
+                      <option>Rushikesh</option>
+                      <option>Pranjal</option>
+                      <option>Jonny</option>
+                      <option>Tejas</option>
+                    </select>
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
