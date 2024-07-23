@@ -6,7 +6,13 @@ import { BsPersonFill, BsFillGridFill } from "react-icons/bs";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import Image from "next/image";
 import Logo from "@/public/logo.png";
-import { MdLeaderboard } from "react-icons/md";
+
+// react icons
+import {
+  MdLeaderboard,
+  MdOutlineHandshake,
+  MdOutlineLeaderboard,
+} from "react-icons/md";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { BiSolidBuildings } from "react-icons/bi";
 
@@ -34,15 +40,18 @@ const Sidebar: React.FC<{ active: string }> = ({ active }) => {
           { name: "Staff", icon: BsPersonFill, link: "/staff" },
           { name: "users", icon: PiUsersThreeFill, link: "/users" },
           { name: "Flats", icon: BiSolidBuildings, link: "/flats" },
+          {
+            name: "channel partner",
+            icon: MdOutlineHandshake,
+            link: "/partner",
+          },
         ].map((menu) => (
-
           <li
             key={menu.name}
             className={`p-2 rounded-lg ${
               activeMenu === menu.name ? "bg-gray-200" : ""
             } mt-4`}
           >
-            
             <Link href={`${menu.link}`}>
               <div
                 onClick={() => setActiveMenu(menu.name)}
@@ -53,7 +62,6 @@ const Sidebar: React.FC<{ active: string }> = ({ active }) => {
               </div>
             </Link>
           </li>
-
         ))}
       </ul>
     </section>

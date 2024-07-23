@@ -1,9 +1,16 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
+// CUSTOM COMPONENTS
 import Sidebar from "@/components/Sidebar";
 
+// INTERFACES
+import { FlatProps } from "@/interface/flats";
+
+// SHADCN COMPONENTS
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+
 import {
   Table,
   TableHeader,
@@ -21,11 +28,32 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+// DOMAIN
+import { domain } from "@/components/route/route";
+
+// IMAGES
 import img1 from "@/public/assets/images/house1.jpg";
 import img2 from "@/public/assets/images/house2.jpg";
 import img3 from "@/public/assets/images/house3.jpg";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 const page = () => {
+  const [flats, setFlats] = useState<FlatProps[]>([]);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    const getData = async () => {
+      const res = await fetch(`${domain}/api/flats?populate=*`);
+
+      const data = await res.json();
+
+      setFlats(data.data);
+      console.log(flats);
+      setIsLoaded(true);
+    };
+    getData();
+  }, [isLoaded]);
+
   const imgs = [img1, img2, img3];
 
   return (
@@ -50,59 +78,42 @@ const page = () => {
               </TableHeader>
 
               <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium w-fit">
-                    <div className=" w-fit mx-auto ">
-                      <Carousel className="w-fit max-w-xs">
-                        <CarouselContent>
-                          {imgs.map((img, index) => (
-                            <CarouselItem key={index}>
-                              <div>
-                                <Image
-                                  src={img}
-                                  alt="img"
-                                  width={500}
-                                  height={500}
-                                  className="w-full h-auto"
-                                />
-                              </div>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        <CarouselNext />
-                        <CarouselPrevious />
-                      </Carousel>
-                    </div>
-                  </TableCell>
-                  <TableCell className="font-medium">
-                    The Metropolitan Manor
-                  </TableCell>
-                  <TableCell className="font-medium">
-                    1234 Main St, Anytown, CA 12345
-                  </TableCell>
-                </TableRow>
-
-                {/* <TableRow>
-                  <TableCell className="font-medium">Jonny</TableCell>
-                  <TableCell className="font-medium">3</TableCell>
-                  <TableCell className="font-medium">18</TableCell>
-                  <TableCell className="font-medium">10</TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell className="font-medium">Rushikesh</TableCell>
-                  <TableCell className="font-medium">2</TableCell>
-                  <TableCell className="font-medium">12</TableCell>
-                  <TableCell className="font-medium">8</TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell className="font-medium">Jonny</TableCell>
-                  <TableCell className="font-medium">1</TableCell>
-                  <TableCell className="font-medium">16</TableCell>
-                  <TableCell className="font-medium">5</TableCell>
-                </TableRow>
-                 */}
+                {flats.map((item) => (
+                  <TableRow>
+                    <TableCell className="font-medium w-fit">
+                      <div className=" w-fit mx-auto ">
+                        <Carousel className="w-fit max-w-xs">
+                          <CarouselContent>
+                            {item.attributes.images.data.map(
+                              (img: any, index: number) => (
+                                <CarouselItem key={index}>
+                                  <div>
+                                    <Image
+                                      src={img.attributes.url}
+                                      alt="img"
+                                      width={500}
+                                      height={500}
+                                      className="w-full h-auto"
+                                    />
+                                  </div>
+                                </CarouselItem>
+                              )
+                            )}
+                          </CarouselContent>
+                          <CarouselNext />
+                          <CarouselPrevious />
+                        </Carousel>
+                      </div>
+                    </TableCell>
+                    <TableCell className="font-medium">
+                      {item.attributes.name}
+                    </TableCell>
+                    <TableCell className="font-medium">
+                      {item.attributes.address} {item.attributes.city}{" "}
+                      {item.attributes.state}
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </CardContent>

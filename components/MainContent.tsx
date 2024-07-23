@@ -25,12 +25,12 @@ const MainContent: React.FC = () => {
       </div>
       <BoxInfo />
       <div className="flex items-start justify-between w-full">
-        <div className="w-[50%]">
+        <div className="w-[100%]">
           <TableData />
         </div>
-        <div className="w-[50%]">
+        {/* <div className="w-[50%]">
           <TrafficChart />{" "}
-        </div>
+        </div> */}
       </div>
     </main>
   );
