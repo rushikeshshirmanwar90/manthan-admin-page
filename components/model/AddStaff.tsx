@@ -42,7 +42,8 @@ const AddStaff: React.FC = () => {
   } = useForm<FormData>();
 
   const [showPassword, setShowPassword] = useState(false);
-
+  const [isDialogOpen, setIsDialogOpen] = useState(false); 
+  
   const toggleShowPassword = () => {
     setShowPassword((prevState) => !prevState);
   };
@@ -52,8 +53,6 @@ const AddStaff: React.FC = () => {
       alert("Invalid phone number");
     } else {
       try {
-        console.log(data.email);
-        console.log(data.password);
         const userCredential = await createUserWithEmailAndPassword(
           auth,
           data.email,
@@ -82,6 +81,7 @@ const AddStaff: React.FC = () => {
 
         if (res.ok) {
           alert("Staff added successfully");
+          setIsDialogOpen(false);
         } else {
           alert("Something went wrong");
         }
@@ -93,9 +93,12 @@ const AddStaff: React.FC = () => {
   };
 
   return (
-    <Dialog>
-      <DialogTrigger>
-        <Button className="text-white bg-gray-900 hover:bg-gray-950 rounded-xl">
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <DialogTrigger asChild>
+        <Button
+          className="text-white bg-gray-900 hover:bg-gray-950 rounded-xl"
+          onClick={() => setIsDialogOpen(true)}
+        >
           Add Staff
         </Button>
       </DialogTrigger>
