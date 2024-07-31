@@ -1,21 +1,22 @@
-export interface clientLeadProps {
+export interface LeadProps {
   id: number;
   attributes: {
+    assign: string;
     user_id: string;
     flat_id: number;
     user_name: string;
     flat_name: string;
+    channel_partner: string;
+    phone_number: string;
+    createdAt : string
   };
 }
 
-export interface brokerLeadProps {
+export interface staffProps {
   id: number;
   attributes: {
-    flatId: string;
-    brokerId: string;
-    brokerName: string;
-    leadName: string;
-    leadNumber: string;
-    flat_name: string;
+    name: string;
+    number: number;
+    email: string;
   };
 }

@@ -12,21 +12,26 @@ import {
 } from "@/components/ui/Table";
 
 // importing interface
-import { clientLeadProps, brokerLeadProps } from "@/interface/lead";
+import { clientLeadProps, brokerLeadProps, staffProps } from "@/interface/lead";
 
 // importing backend url
 import { domain } from "@/components/route/route";
 
-const page = () => {
+const Page = () => {
   const [clientLead, setClientLead] = useState<clientLeadProps[]>([]);
   const [brokerLead, setBrokerLead] = useState<brokerLeadProps[]>([]);
   const [leadType, setLeadType] = useState<string>("clientLead");
+  const [staffData, setStaffData] = useState<staffProps[]>([]);
 
   // Loading states
   const [brokerLoading, setBrokerLoading] = useState<boolean>(true);
   const [clientLoading, setClientLoading] = useState<boolean>(true);
+  const [staffLoading, setStaffLoading] = useState<boolean>(true);
 
-  // GETTING BROKER LEADS LEADS DATA
+  // State to trigger reloads
+  const [reload, setReload] = useState<boolean>(false);
+
+  // GETTING BROKER LEADS DATA
   useEffect(() => {
     const getData = async () => {
       const res = await fetch(`${domain}/api/leads`);
@@ -35,7 +40,7 @@ const page = () => {
       setClientLoading(false);
     };
     getData();
-  }, [clientLoading]);
+  }, [reload]);
 
   // GETTING DIRECT CLIENT DATA
   useEffect(() => {
@@ -46,7 +51,55 @@ const page = () => {
       setBrokerLoading(false);
     };
     getData();
-  }, [brokerLoading]);
+  }, [reload]);
+
+  // FETCHING THE STAFF DATA
+  useEffect(() => {
+    const getData = async () => {
+      const res = await fetch(
+        `${domain}/api/user-ids?filters[$and][0][user_type][$eq]=staff`
+      );
+      const data = await res.json();
+      setStaffData(data.data);
+      setStaffLoading(false);
+    };
+    getData();
+  }, [reload]);
+
+  const assignStaff = async (name: string, leadType: string, id: number) => {
+    try {
+      let api = "";
+      if (leadType === "clientLead") {
+        api = `${domain}/api/leads/${id}`;
+      } else {
+        api = `${domain}/api/broker-leads/${id}`;
+      }
+
+      const res = await fetch(api, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: {
+            assign: name,
+          },
+        }),
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error("Error response from server:", errorText);
+        alert("Something went wrong: " + errorText);
+      } else {
+        alert("Assigned Successfully");
+        setReload((prev) => !prev); // Trigger reload
+      }
+    } catch (error: any) {
+      console.error("Network error:", error);
+      alert("Something went wrong: " + error.message);
+    }
+  };
 
   return (
     <div className="flex gap-4">
@@ -63,10 +116,9 @@ const page = () => {
                   setLeadType(e.target.value);
                 }}
                 name="type"
+                defaultValue="clientLead"
               >
-                <option selected value="clientLead">
-                  Direct Client Lead
-                </option>
+                <option value="clientLead">Direct Client Lead</option>
                 <option value="brokerLead">Leads By Broker</option>
               </select>
             </div>
@@ -96,14 +148,21 @@ const page = () => {
                         {item.attributes.flat_name}
                       </TableCell>
                       <TableCell className="font-medium">
-                        <select className="select select-bordered w-full max-w-xs">
-                          <option disabled selected>
+                        <select
+                          onChange={(e) => {
+                            assignStaff(e.target.value, "clientLead", item.id);
+                          }}
+                          className="select select-bordered w-full max-w-xs"
+                          value={item.attributes.assign || ""}
+                        >
+                          <option disabled value="">
                             Select The Staff
                           </option>
-                          <option>Rushikesh</option>
-                          <option>Pranjal</option>
-                          <option>Jonny</option>
-                          <option>Tejas</option>
+                          {staffData.map((staff, index) => (
+                            <option key={index} value={staff.attributes.name}>
+                              {staff.attributes.name}
+                            </option>
+                          ))}
                         </select>
                       </TableCell>
                     </TableRow>
@@ -139,14 +198,21 @@ const page = () => {
                         {item.attributes.flat_name}
                       </TableCell>
                       <TableCell className="font-medium">
-                        <select className="select select-bordered w-full max-w-xs">
-                          <option disabled selected>
+                        <select
+                          onChange={(e) => {
+                            assignStaff(e.target.value, "brokerLead", item.id);
+                          }}
+                          className="select select-bordered w-full max-w-xs"
+                          value={item.attributes.assign || ""}
+                        >
+                          <option disabled value="">
                             Select The Staff
                           </option>
-                          <option>Rushikesh</option>
-                          <option>Pranjal</option>
-                          <option>Jonny</option>
-                          <option>Tejas</option>
+                          {staffData.map((staff, index) => (
+                            <option key={index} value={staff.attributes.name}>
+                              {staff.attributes.name}
+                            </option>
+                          ))}
                         </select>
                       </TableCell>
                     </TableRow>
@@ -161,4 +227,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

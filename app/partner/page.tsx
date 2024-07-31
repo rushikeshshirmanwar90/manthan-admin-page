@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -10,44 +11,29 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/Table";
+import { brokerProps } from "@/interface/user";
+import { domain } from "@/components/route/route";
 
 const page = () => {
-  const users = [
-    {
-      userId: 1,
-      name: "John Doe",
-      phoneNumber: "123-456-7890",
-      gmailId: "johndoe@gmail.com",
-    },
+  const [user, setUser] = useState<brokerProps[]>([]);
 
-    {
-      userId: 2,
-      name: "Jane Smith",
-      phoneNumber: "234-567-8901",
-      gmailId: "janesmith@gmail.com",
-    },
+  // LOADING STATES
+  const [userLoading, setUserLoading] = useState<boolean>(true);
 
-    {
-      userId: 3,
-      name: "Alice Johnson",
-      phoneNumber: "345-678-9012",
-      gmailId: "alicejohnson@gmail.com",
-    },
+  useEffect(() => {
+    const getData = async () => {
+      const res = await fetch(
+        `${domain}/api/user-ids?filters[$and][0][user_type][$eq]=broker`
+      );
 
-    {
-      userId: 4,
-      name: "Bob Brown",
-      phoneNumber: "456-789-0123",
-      gmailId: "bobbrown@gmail.com",
-    },
+      const data = await res.json();
 
-    {
-      userId: 5,
-      name: "Charlie Davis",
-      phoneNumber: "567-890-1234",
-      gmailId: "charliedavis@gmail.com",
-    },
-  ];
+      setUser(data.data);
+
+      setUserLoading(false);
+    };
+    getData();
+  }, [userLoading]);
 
   return (
     <div className="flex gap-4">
@@ -57,7 +43,7 @@ const page = () => {
       <main className="flex-1 p-6 grid gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>All Orders</CardTitle>
+            <CardTitle>Our Channel Partner</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
@@ -70,15 +56,17 @@ const page = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {users.map((user) => (
+                {user.map((user) => (
                   <TableRow>
-                    <TableCell className="font-medium">{user.userId}</TableCell>
-                    <TableCell className="font-medium">{user.name}</TableCell>
+                    <TableCell className="font-medium">{user.id}</TableCell>
                     <TableCell className="font-medium">
-                      {user.phoneNumber}
+                      {user.attributes.name}
                     </TableCell>
                     <TableCell className="font-medium">
-                      {user.gmailId}
+                      {user.attributes.phone}
+                    </TableCell>
+                    <TableCell className="font-medium">
+                      {user.attributes.mail}
                     </TableCell>
                   </TableRow>
                 ))}

@@ -1,5 +1,5 @@
-import React from "react";
-import Customer from "@/components/Customer";
+"use client";
+import React, { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -12,7 +12,29 @@ import {
   TableCell,
 } from "@/components/ui/Table";
 
+import { staffProps } from "@/interface/lead";
+import { domain } from "@/components/route/route";
+import AllocatedLead from "@/components/model/AllocatedLead";
+import AddStaff from "@/components/model/AddStaff";
+
 const page = () => {
+  const [staffData, setStaffData] = useState<staffProps[]>([]);
+  const [staffLoading, setStaffLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const getData = async () => {
+      const res = await fetch(
+        `${domain}/api/user-ids?filters[$and][0][user_type][$eq]=staff`
+      );
+      
+      const data = await res.json();
+
+      setStaffData(data.data);
+      setStaffLoading(false);
+    };
+    getData();
+  }, [staffLoading]);
+
   return (
     <div className="flex gap-4">
       <div className="w-[17%]">
@@ -20,46 +42,39 @@ const page = () => {
       </div>
       <main className="flex-1 p-6 grid gap-6">
         <Card>
-          <CardHeader>
+          <CardHeader className="flex-row items-center gap-10">
             <CardTitle>All Staff</CardTitle>
+            <div className="">
+              <AddStaff />
+            </div>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>Name</TableHead>
-                  <TableHead>Rank</TableHead>
+                  <TableHead>Number</TableHead>
                   <TableHead>Total Leads Allocated</TableHead>
                   <TableHead>Table Lead Closed</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">Rushikesh</TableCell>
-                  <TableCell className="font-medium">5</TableCell>
-                  <TableCell className="font-medium">6</TableCell>
-                  <TableCell className="font-medium">3</TableCell>
-                </TableRow>
+                {staffData.map((item, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">
+                      {item.attributes.name}
+                    </TableCell>
+                    <TableCell className="font-medium">
+                      {item.attributes.number}
+                    </TableCell>
 
-                <TableRow>
-                  <TableCell className="font-medium">Jonny</TableCell>
-                  <TableCell className="font-medium">3</TableCell>
-                  <TableCell className="font-medium">18</TableCell>
-                  <TableCell className="font-medium">10</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">Rushikesh</TableCell>
-                  <TableCell className="font-medium">2</TableCell>
-                  <TableCell className="font-medium">12</TableCell>
-                  <TableCell className="font-medium">8</TableCell>
-                </TableRow>
+                    <TableCell className="font-medium">
+                      <AllocatedLead name={item.attributes.name} />
+                    </TableCell>
 
-                <TableRow>
-                  <TableCell className="font-medium">Jonny</TableCell>
-                  <TableCell className="font-medium">1</TableCell>
-                  <TableCell className="font-medium">16</TableCell>
-                  <TableCell className="font-medium">5</TableCell>
-                </TableRow>
+                    <TableCell className="font-medium">3</TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </CardContent>

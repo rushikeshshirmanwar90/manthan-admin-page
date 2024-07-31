@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -10,8 +11,28 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/Table";
+import { brokerProps } from "@/interface/user";
+import { domain } from "@/components/route/route";
 
 const page = () => {
+  const [user, setUser] = useState<brokerProps[]>([]);
+
+  // LOADING STATES
+  const [userLoading, setUserLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const getData = async () => {
+      const res = await fetch(`${domain}/api/user-ids?filters[$and][0][user_type][$eq]=user`);
+
+      const data = await res.json();
+
+      setUser(data.data);
+
+      setUserLoading(false);
+    };
+    getData();
+  }, [userLoading]);
+
   const users = [
     {
       userId: 1,
@@ -57,7 +78,7 @@ const page = () => {
       <main className="flex-1 p-6 grid gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>All Orders</CardTitle>
+            <CardTitle>All Users</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
@@ -70,15 +91,15 @@ const page = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {users.map((user) => (
+                {user.map((user) => (
                   <TableRow>
-                    <TableCell className="font-medium">{user.userId}</TableCell>
-                    <TableCell className="font-medium">{user.name}</TableCell>
+                    <TableCell className="font-medium">{user.id}</TableCell>
+                    <TableCell className="font-medium">{user.attributes.name}</TableCell>
                     <TableCell className="font-medium">
-                      {user.phoneNumber}
+                      {user.attributes.phone}
                     </TableCell>
                     <TableCell className="font-medium">
-                      {user.gmailId}
+                      {user.attributes.mail}
                     </TableCell>
                   </TableRow>
                 ))}

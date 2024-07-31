@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import BoxInfo from "./BoxInfo";
 import TableData from "./TableData";
-import TrafficChart from "./Chart";
+import { LeadProps } from "@/interface/lead";
 
 const MainContent: React.FC = () => {
+  const [leads, setLeads] = useState<LeadProps[]>([]);
+
   return (
     <main className="p-6 overflow-y-auto">
       <div className="head-title flex items-center justify-between">
@@ -28,9 +30,6 @@ const MainContent: React.FC = () => {
         <div className="w-[100%]">
           <TableData />
         </div>
-        {/* <div className="w-[50%]">
-          <TrafficChart />{" "}
-        </div> */}
       </div>
     </main>
   );

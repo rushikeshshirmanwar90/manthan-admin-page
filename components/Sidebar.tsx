@@ -10,8 +10,7 @@ import Logo from "@/public/logo.png";
 // react icons
 import {
   MdLeaderboard,
-  MdOutlineHandshake,
-  MdOutlineLeaderboard,
+  MdOutlineHandshake
 } from "react-icons/md";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { BiSolidBuildings } from "react-icons/bi";
@@ -38,8 +37,8 @@ const Sidebar: React.FC<{ active: string }> = ({ active }) => {
           { name: "Dashboard", icon: BsFillGridFill, link: "/" },
           { name: "Leads", icon: MdLeaderboard, link: "/leads" },
           { name: "Staff", icon: BsPersonFill, link: "/staff" },
-          { name: "users", icon: PiUsersThreeFill, link: "/users" },
           { name: "Flats", icon: BiSolidBuildings, link: "/flats" },
+          { name: "users", icon: PiUsersThreeFill, link: "/users" },
           {
             name: "channel partner",
             icon: MdOutlineHandshake,

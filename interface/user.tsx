@@ -1,4 +1,4 @@
-export interface brokerProps {
+export interface userProps {
   id: number;
   attributes: {
     name: string;
