@@ -17,6 +17,10 @@ import { domain } from "@/components/route/route";
 import AllocatedLead from "@/components/model/AllocatedLead";
 import AddStaff from "@/components/model/AddStaff";
 
+// IMPORTING REACT ICONS
+import { IoTrashBinSharp } from "react-icons/io5";
+import { FaPencil } from "react-icons/fa6";
+
 const page = () => {
   const [staffData, setStaffData] = useState<staffProps[]>([]);
   const [staffLoading, setStaffLoading] = useState<boolean>(true);
@@ -26,7 +30,7 @@ const page = () => {
       const res = await fetch(
         `${domain}/api/user-ids?filters[$and][0][user_type][$eq]=staff`
       );
-      
+
       const data = await res.json();
 
       setStaffData(data.data);
@@ -40,6 +44,7 @@ const page = () => {
       <div className="w-[17%]">
         <Sidebar active={"Staff"} />
       </div>
+
       <main className="flex-1 p-6 grid gap-6">
         <Card>
           <CardHeader className="flex-row items-center gap-10">
@@ -49,34 +54,51 @@ const page = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Number</TableHead>
-                  <TableHead>Total Leads Allocated</TableHead>
-                  <TableHead>Table Lead Closed</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {staffData.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">
-                      {item.attributes.name}
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      {item.attributes.number}
-                    </TableCell>
-
-                    <TableCell className="font-medium">
-                      <AllocatedLead name={item.attributes.name} />
-                    </TableCell>
-
-                    <TableCell className="font-medium">3</TableCell>
+            {staffLoading ? (
+              <div> Loading.... </div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Number</TableHead>
+                    <TableHead>Total Leads Allocated</TableHead>
+                    <TableHead>Table Lead Closed</TableHead>
+                    <TableHead>Action</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+
+                <TableBody>
+                  {staffData.map((item, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">
+                        {item.attributes.name}
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        {item.attributes.number}
+                      </TableCell>
+
+                      <TableCell className="font-medium">
+                        <AllocatedLead name={item.attributes.name} />
+                      </TableCell>
+
+                      <TableCell className="font-medium">3</TableCell>
+                      <TableCell className="font-medium">
+                        <div className="flex items-center justify-center gap-3">
+                          <div className="border border-yellow-500 p-2 rounded-xl bg-yellow-500">
+                            <FaPencil color="white" size={20} />
+                          </div>
+
+                          <div className="border border-red-600 p-2 rounded-xl bg-red-600">
+                            <IoTrashBinSharp color="white" size={20} />
+                          </div>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
           </CardContent>
         </Card>
       </main>

@@ -18,8 +18,6 @@ import { Button } from "@/components/ui/button";
 // FIREBASE AUTH
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
 } from "firebase/auth";
 import { auth } from "@/firebase/config";
 

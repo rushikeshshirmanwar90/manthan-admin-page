@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/Table";
 
 // importing interface
-import { clientLeadProps, brokerLeadProps, staffProps } from "@/interface/lead";
+import { LeadProps, staffProps } from "@/interface/lead";
 
 // importing backend url
 import { domain } from "@/components/route/route";
 
 const Page = () => {
-  const [clientLead, setClientLead] = useState<clientLeadProps[]>([]);
-  const [brokerLead, setBrokerLead] = useState<brokerLeadProps[]>([]);
+  const [clientLead, setClientLead] = useState<LeadProps[]>([]);
+  const [brokerLead, setBrokerLead] = useState<LeadProps[]>([]);
   const [leadType, setLeadType] = useState<string>("clientLead");
   const [staffData, setStaffData] = useState<staffProps[]>([]);
 
@@ -186,13 +186,13 @@ const Page = () => {
                   {brokerLead.map((item, index) => (
                     <TableRow key={index}>
                       <TableCell className="font-medium">
-                        #P-{item.attributes.flatId}
+                        #P-{item.attributes.flat_id}
                       </TableCell>
                       <TableCell className="font-medium">
-                        Mr. {item.attributes.leadName}
+                        Mr. {item.attributes.user_name}
                       </TableCell>
                       <TableCell className="font-medium">
-                        {item.attributes.brokerName}
+                        {item.attributes.assign}
                       </TableCell>
                       <TableCell className="font-medium">
                         {item.attributes.flat_name}
