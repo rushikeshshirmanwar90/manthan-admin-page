@@ -20,6 +20,7 @@ import AddStaff from "@/components/model/AddStaff";
 // IMPORTING REACT ICONS
 import { IoTrashBinSharp } from "react-icons/io5";
 import { FaPencil } from "react-icons/fa6";
+import ClosedLeads from "@/components/model/ClosedLead";
 
 const page = () => {
   const [staffData, setStaffData] = useState<staffProps[]>([]);
@@ -30,14 +31,22 @@ const page = () => {
       const res = await fetch(
         `${domain}/api/user-ids?filters[$and][0][user_type][$eq]=staff`
       );
-
       const data = await res.json();
-
       setStaffData(data.data);
       setStaffLoading(false);
     };
     getData();
   }, [staffLoading]);
+
+  const deleteStaff = async (id: number) => {
+    const res = await fetch(`${domain}/api/user-ids/${id}`, {
+      method: "DELETE",
+    });
+
+    if (res.ok) {
+      alert("Deleted Successfully");
+    }
+  };
 
   return (
     <div className="flex gap-4">
@@ -82,16 +91,23 @@ const page = () => {
                         <AllocatedLead name={item.attributes.name} />
                       </TableCell>
 
-                      <TableCell className="font-medium">3</TableCell>
+                      <TableCell className="font-medium">
+                        <ClosedLeads name={item.attributes.name} />
+                      </TableCell>
                       <TableCell className="font-medium">
                         <div className="flex items-center justify-center gap-3">
                           <div className="border border-yellow-500 p-2 rounded-xl bg-yellow-500">
                             <FaPencil color="white" size={20} />
                           </div>
 
-                          <div className="border border-red-600 p-2 rounded-xl bg-red-600">
+                          <button
+                            onClick={() => {
+                              deleteStaff(item.id);
+                            }}
+                            className="border border-red-600 p-2 rounded-xl bg-red-600"
+                          >
                             <IoTrashBinSharp color="white" size={20} />
-                          </div>
+                          </button>
                         </div>
                       </TableCell>
                     </TableRow>

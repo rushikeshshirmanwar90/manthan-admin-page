@@ -19,7 +19,7 @@ import {
 import { LeadProps } from "@/interface/lead";
 import { domain } from "../route/route";
 
-const AllocatedLead: React.FC<{ name: string }> = ({ name }) => {
+const ClosedLeads: React.FC<{ name: string }> = ({ name }) => {
   const [leads, setLeads] = useState<LeadProps[]>([]);
 
   //   loading states
@@ -28,8 +28,9 @@ const AllocatedLead: React.FC<{ name: string }> = ({ name }) => {
   useEffect(() => {
     const getData = async () => {
       const res = await fetch(
-        `${domain}/api/leads?filters[$and][0][assign][$eq]=${name}`
+        `${domain}/api/leads?filters[$and][0][assign][$eq]=${name}&filters[$and][0][booked][$eq]=true`
       );
+
       const data = await res.json();
       setLeads(data.data);
       setLeadLoaded(true);
@@ -78,4 +79,4 @@ const AllocatedLead: React.FC<{ name: string }> = ({ name }) => {
   );
 };
 
-export default AllocatedLead;
+export default ClosedLeads;
