@@ -37,7 +37,7 @@ import img2 from "@/public/assets/images/house2.jpg";
 import img3 from "@/public/assets/images/house3.jpg";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
-const page = () => {
+const Page = () => {
   const [flats, setFlats] = useState<FlatProps[]>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -78,8 +78,8 @@ const page = () => {
               </TableHeader>
 
               <TableBody>
-                {flats.map((item) => (
-                  <TableRow>
+                {flats.map((item, index) => (
+                  <TableRow key={index} >
                     <TableCell className="font-medium w-fit">
                       <div className=" w-fit mx-auto ">
                         <Carousel className="w-fit max-w-xs">
@@ -123,4 +123,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

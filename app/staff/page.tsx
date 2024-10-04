@@ -20,7 +20,7 @@ import { IoTrashBinSharp } from "react-icons/io5";
 import { FaPencil } from "react-icons/fa6";
 import ClosedLeads from "@/components/model/ClosedLead";
 
-const page = () => {
+const Page = () => {
   const [staffData, setStaffData] = useState<staffProps[]>([]);
   const [staffLoading, setStaffLoading] = useState<boolean>(true);
 
@@ -130,4 +130,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

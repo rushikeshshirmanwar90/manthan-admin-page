@@ -11,11 +11,11 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/Table";
-import { brokerProps } from "@/interface/user";
+import { userProps } from "@/interface/user";
 import { domain } from "@/components/route/route";
 
-const page = () => {
-  const [user, setUser] = useState<brokerProps[]>([]);
+const Page = () => {
+  const [user, setUser] = useState<userProps[]>([]);
 
   // LOADING STATES
   const [userLoading, setUserLoading] = useState<boolean>(true);
@@ -56,8 +56,8 @@ const page = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {user.map((user) => (
-                  <TableRow>
+                {user.map((user, index) => (
+                  <TableRow key={index}>
                     <TableCell className="font-medium">{user.id}</TableCell>
                     <TableCell className="font-medium">
                       {user.attributes.name}
@@ -79,4 +79,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
