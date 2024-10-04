@@ -1,8 +1,8 @@
 import React from "react";
 
-import { DatePickerWithPresets } from "@/components/Calender";
+// import { DatePickerWithPresets } from "../components/ui/calendar";
 
-import { CalendarForm } from "@/components/Calender2";
+// import { CalendarForm } from "@/components/Calender2";
 
 import {
   Select,
@@ -44,7 +44,7 @@ const FilterSection = () => {
         </Select>
       </div>
 
-      <div className="flex flex-col w-fit my-5 p-5 border-black bg-white shadow-lg ">
+      {/* <div className="flex flex-col w-fit my-5 p-5 border-black bg-white shadow-lg ">
         <h1 className="mb-2 font-semibold"> Select Custom Date </h1>
         <div className="flex gap-4">
           <DatePickerWithPresets />
@@ -53,7 +53,7 @@ const FilterSection = () => {
             search
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
