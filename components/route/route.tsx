@@ -1,1 +1,1 @@
-export const domain = "http://localhost:1337";
+export const domain = "https://dolphin-app-6886s.ondigitalocean.app";

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
-
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   Table,
@@ -11,7 +10,6 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/Table";
-
 import { staffProps } from "@/interface/lead";
 import { domain } from "@/components/route/route";
 import AllocatedLead from "@/components/model/AllocatedLead";
@@ -31,10 +29,12 @@ const page = () => {
       const res = await fetch(
         `${domain}/api/user-ids?filters[$and][0][user_type][$eq]=staff`
       );
+
       const data = await res.json();
       setStaffData(data.data);
       setStaffLoading(false);
     };
+
     getData();
   }, [staffLoading]);
 
@@ -42,7 +42,6 @@ const page = () => {
     const res = await fetch(`${domain}/api/user-ids/${id}`, {
       method: "DELETE",
     });
-
     if (res.ok) {
       alert("Deleted Successfully");
     }
@@ -78,40 +77,49 @@ const page = () => {
                 </TableHeader>
 
                 <TableBody>
-                  {staffData.map((item, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="font-medium">
-                        {item.attributes.name}
-                      </TableCell>
-                      <TableCell className="font-medium">
-                        {item.attributes.number}
-                      </TableCell>
+                  {staffData === null
+                    ? "NULL DATA"
+                    : staffData.map((item, index) => (
 
-                      <TableCell className="font-medium">
-                        <AllocatedLead name={item.attributes.name} />
-                      </TableCell>
+                        <TableRow key={index}>
 
-                      <TableCell className="font-medium">
-                        <ClosedLeads name={item.attributes.name} />
-                      </TableCell>
-                      <TableCell className="font-medium">
-                        <div className="flex items-center justify-center gap-3">
-                          <div className="border border-yellow-500 p-2 rounded-xl bg-yellow-500">
-                            <FaPencil color="white" size={20} />
-                          </div>
+                          <TableCell className="font-medium">
+                            {item.attributes.name}
+                          </TableCell>
 
-                          <button
-                            onClick={() => {
-                              deleteStaff(item.id);
-                            }}
-                            className="border border-red-600 p-2 rounded-xl bg-red-600"
-                          >
-                            <IoTrashBinSharp color="white" size={20} />
-                          </button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                          <TableCell className="font-medium">
+                            {item.attributes.number}
+                          </TableCell>
+
+                          <TableCell className="font-medium">
+                            <AllocatedLead name={item.attributes.name} />
+                          </TableCell>
+
+                          <TableCell className="font-medium">
+                            <ClosedLeads name={item.attributes.name} />
+                          </TableCell>
+
+                        <TableCell className="font-medium">
+                            <div className="flex items-center justify-center gap-3">
+                              <div className="border border-yellow-500 p-2 rounded-xl bg-yellow-500">
+                                <FaPencil color="white" size={20} />
+                              </div>
+
+                              <button
+                                onClick={() => {
+                                  deleteStaff(item.id);
+                                }}
+                                className="border border-red-600 p-2 rounded-xl bg-red-600"
+                              >
+                                <IoTrashBinSharp color="white" size={20} />
+                              </button>
+                            </div>
+                          </TableCell>
+
+                        </TableRow>
+                      ))
+                    }
+
                 </TableBody>
               </Table>
             )}

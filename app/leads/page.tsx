@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -39,6 +40,7 @@ const Page = () => {
       setClientLead(data.data);
       setClientLoading(false);
     };
+
     getData();
   }, [reload]);
 
@@ -141,12 +143,15 @@ const Page = () => {
                       <TableCell className="font-medium">
                         #P-{item.attributes.flat_id}
                       </TableCell>
+
                       <TableCell className="font-medium">
                         Mr. {item.attributes.user_name}
                       </TableCell>
+
                       <TableCell className="font-medium">
                         {item.attributes.flat_name}
                       </TableCell>
+
                       <TableCell className="font-medium">
                         <select
                           onChange={(e) => {

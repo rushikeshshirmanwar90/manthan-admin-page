@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { BsPersonFill, BsFillGridFill } from "react-icons/bs";
-import { BiSolidFoodMenu } from "react-icons/bi";
 import Image from "next/image";
 import Logo from "@/public/logo.png";
 
@@ -16,11 +15,14 @@ import { PiUsersThreeFill } from "react-icons/pi";
 import { BiSolidBuildings } from "react-icons/bi";
 
 const Sidebar: React.FC<{ active: string }> = ({ active }) => {
+
   const [activeMenu, setActiveMenu] = useState(active);
 
   return (
+
     <section className="fixed top-0 left-0 w-72 h-full bg-gray-100 z-50 transition-transform duration-300">
       <div className="brand flex items-center justify-start p-4">
+
         <Image
           src={Logo}
           alt="Logo"
@@ -33,7 +35,9 @@ const Sidebar: React.FC<{ active: string }> = ({ active }) => {
       </div>
 
       <ul className="side-menu top px-5">
+
         {[
+
           { name: "Dashboard", icon: BsFillGridFill, link: "/" },
           { name: "Leads", icon: MdLeaderboard, link: "/leads" },
           { name: "Staff", icon: BsPersonFill, link: "/staff" },
@@ -44,6 +48,7 @@ const Sidebar: React.FC<{ active: string }> = ({ active }) => {
             icon: MdOutlineHandshake,
             link: "/partner",
           },
+
         ].map((menu) => (
           <li
             key={menu.name}
